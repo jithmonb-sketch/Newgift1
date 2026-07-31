@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Girlfriend's Day</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-1: #0f0817;
+      --bg-gradient-2: #1d0e2e;
+      --card-bg: rgba(28, 20, 41, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent-pink: #ff7597;
+      --accent-purple: #b388ff;
+      --text-dark: #f0e6ff;
+      --text-light: #b3a4cb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0c0714 0%, #1a0b2e 50%, #2a083b 100%);
+      background-attachment: fixed;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .bubbles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -60px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), rgba(255, 117, 151, 0.15));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(255, 117, 151, 0.2), inset -2px -2px 6px rgba(255, 255, 255, 0.1);
+      animation: floatUp linear infinite;
+      user-select: none;
+      backdrop-filter: blur(2px);
+    }
+
+    .bubble::after {
+      content: '♥';
+      color: rgba(255, 117, 151, 0.85);
+      font-size: var(--heart-size, 14px);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 430px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-back {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(35, 25, 50, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--accent-purple);
+      font-weight: bold;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .pill-tag {
+      background: rgba(40, 26, 60, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      color: var(--accent-pink);
+      text-transform: uppercase;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 24px;
+    }
+
+    .section {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .section.active {
+      display: flex;
+      animation: slideUpFade 0.6s ease forwards;
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    p.subtitle {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .cursive {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), #7b52b9);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(179, 136, 255, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .next-nav {
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .next-label {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      letter-spacing: 1px;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 260px;
+      height: 180px;
+      margin: 40px auto 20px;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .envelope {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2d183e, #1a0e28);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                  0 0 20px rgba(179, 136, 255, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), box-shadow 0.4s ease;
+    }
+
+    .envelope-wrapper:hover .envelope {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.6), 
+                  0 0 25px rgba(255, 117, 151, 0.3);
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-top: 100px solid #3c2054;
+      transform-origin: top;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+      border-radius: 4px;
+    }
+
+    .envelope-wrapper:hover .envelope::before {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(255, 117, 151, 0.15) 0%, transparent 60%);
+      border-radius: 0 0 16px 16px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .envelope-letter-badge {
+      width: 54px;
+      height: 54px;
+      background: linear-gradient(135deg, #ff7597, #b388ff);
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 20px rgba(255, 117, 151, 0.4);
+      z-index: 4;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: pulseGlowDark 2.5s infinite ease-in-out;
+    }
+
+    .envelope-wrapper:hover .envelope-letter-badge {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    @keyframes pulseGlowDark {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 117, 151, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(255, 117, 151, 0);
+      }
+    }
+
+    .music-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 24px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      margin: 20px 0;
+    }
+
+    .track-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .track-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 117, 151, 0.2);
+      border: 1px solid rgba(255, 117, 151, 0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      color: #0c0714;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: auto;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(179, 136, 255, 0.4);
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      width: 100%;
+      margin-bottom: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-pink);
+      pointer-events: none;
+    }
+
+    .time-stamps {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .carousel-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .carousel-image-container {
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: #150c22;
+      touch-action: pan-y;
+    }
+
+    .carousel-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .carousel-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(20, 12, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      color: var(--accent-purple);
+      font-weight: bold;
+      backdrop-filter: blur(4px);
+    }
+
+    .caption {
+      margin-top: 14px;
+      font-size: 1.1rem;
+      color: var(--accent-pink);
+    }
+
+    .thumbnails {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 15px;
+      overflow-x: auto;
+      max-width: 100%;
+      padding-bottom: 5px;
+    }
+
+    .thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+      opacity: 0.4;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .thumb.active {
+      opacity: 1;
+      border-color: var(--accent-pink);
+    }
+
+    .wheel-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 20px 0;
+    }
+
+    canvas#wheel {
+      width: 100%;
+      height: 100%;
+      transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: #1c1429;
+      border: 2px solid var(--accent-purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      color: var(--accent-pink);
+    }
+
+    .selected-reason {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-top: 10px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      color: var(--accent-purple);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .letter-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      text-align: left;
+    }
+
+    .scratch-card-container {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      margin: 30px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      border: 1px solid var(--card-border);
+    }
+
+    .scratch-secret {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #170d26;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent-pink);
+      font-weight: 600;
+      text-align: center;
+      padding: 0 15px;
+      line-height: 1.4;
+    }
+
+    canvas#scratchCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .doodle-img {
+      width: 180px;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bubbles-container" id="bubblesContainer"></div>
+
+  <div class="app-container">
+    <div class="nav-back" id="backBtn" onclick="prevStep()" style="display: none;">←</div>
+
+    <!-- STEP 1: ENVELOPE -->
+    <div class="section active" id="step1">
+      <div class="pill-tag">♥ Happy Girlfriend's Day</div>
+      <h1>hi, Biyaa ♥</h1>
+      <p class="subtitle">I made this so you'd remember, Biyaa — you are so, so loved.</p>
+      
+      <div class="envelope-wrapper" onclick="nextStep()">
+        <div class="envelope">
+          <div class="envelope-letter-badge">B</div>
+        </div>
+      </div>
+
+      <div class="next-nav" style="margin-top: 30px;">
+        <span class="next-label">TAP ENVELOPE TO OPEN ♡</span>
+      </div>
+    </div>
+
+    <!-- STEP 2: MUSIC PLAYER -->
+    <div class="section" id="step2">
+      <div class="pill-tag">♥ Our Song</div>
+      <h1>this song always brings me back to you</h1>
+      <p class="subtitle">press play, close your eyes — I'll be there too.</p>
+
+      <div class="music-card">
+        <div class="track-info">
+          <div class="track-icon">🎶</div>
+          <div>
+            <h3 style="font-size: 1.1rem; color: #ffffff;">Our Special Song</h3>
+            <p style="font-size: 0.8rem; color: var(--text-light);">OUR SONG ♡</p>
+          </div>
+          <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+        </div>
+        <div class="progress-bar" id="progressBar" onclick="seekAudio(event)">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-stamps">
+          <span id="currentTime">0:00</span>
+          <span id="totalDuration">3:20</span>
+        </div>
+      </div>
+
+      <p class="cursive" style="font-size: 1.2rem; color: var(--accent-purple); margin: 15px 0;">I'll be humming this until I see you again, Biyaa ♡</p>
+
+      <div class="next-nav">
+        <span class="next-label">UP NEXT ↓</span>
+        <p class="cursive" style="color: var(--accent-pink);">next — a few of my favourite yous →</p>
+        <button class="btn-primary" onclick="nextStep()">SEE YOUR PICTURES →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: GALLERY -->
+    <div class="section" id="step3">
+      <div class="pill-tag">♥ My Favourite Girl</div>
+      <h1>every version of you, my favourite</h1>
+      <p class="subtitle">every picture reminds me how lucky I am ♡</p>
+
+      <div class="carousel-card">
+        <div class="carousel-image-container" id="carouselContainer">
+          <img id="carouselImg" src="bjdrsphnqhvytkqauxzm.jpeg" alt="Biyaa">
+          <div class="carousel-controls">
+            <div class="carousel-arrow" onclick="changeSlide(-1)">←</div>
+            <div class="carousel-arrow" onclick="changeSlide(1)">→</div>
+          </div>
+        </div>
+        <p class="next-label" style="margin-top: 10px;" id="slideCounter">01 / 04</p>
+        <p class="cursive caption" id="slideCaption">this is the face I think about all day.</p>
+      </div>
+
+      <div class="thumbnails" id="thumbContainer"></div>
+
+      <div class="next-nav">
+        <span class="next-label">UP NEXT ↓</span>
+        <p class="cursive" style="color: var(--accent-pink);">next — a little wheel of reasons →</p>
+        <button class="btn-primary" onclick="nextStep()">SPIN FOR A REASON →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: WHEEL OF REASONS -->
+    <div class="section" id="step4">
+      <div class="pill-tag">♥ Spin the Wheel</div>
+      <h1>pick a reason, any reason</h1>
+      <p class="subtitle">every one of them is true ♡</p>
+
+      <div class="wheel-container">
+        <canvas id="wheel" width="280" height="280"></canvas>
+        <div class="wheel-center">♥</div>
+      </div>
+
+      <button class="btn-primary" style="width: auto; padding: 10px 24px; margin-top: 0;" onclick="spinWheel()">SPIN IT 🌸</button>
+
+      <div style="margin-top: 15px; width: 100%;">
+        <span class="next-label">HERE'S ONE</span>
+        <div class="selected-reason cursive" id="reasonText">Spin to reveal a reason...</div>
+      </div>
+
+      <div class="next-nav">
+        <span class="next-label">UP NEXT ↓</span>
+        <p class="cursive" style="color: var(--accent-pink);">next — a letter I wrote for you →</p>
+        <button class="btn-primary" onclick="nextStep()">READ MY LETTER →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: LETTER -->
+    <div class="section" id="step5">
+      <div class="pill-tag">♥ A Letter for Biyaa</div>
+      <h1 class="cursive" style="font-size: 2.5rem; color: var(--accent-pink);">Biyaa, my love,</h1>
+
+      <div class="letter-card">
+        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">
+          I've never been great with saying big things out loud, so I made you this instead — a song, a few pictures, and everything I've been meaning to tell you.
+        </p>
+
+        <br>
+
+        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">
+          thank you for being patient with me — for the late-night talks, the bad jokes I make you sit through, and the way you notice when I need a hug before I do.
+        </p>
+        <br>
+        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">
+          I hope today feels soft. I hope you feel a little bit of how much you're loved. And on the days I forget to say it out loud — please remember, I still choose you. Every single time.
+        </p>
+        <br>
+        <p class="cursive" style="font-size: 1.3rem; color: var(--accent-purple);">yours, always,<br>— yours, always jb ♡ ❤️</p>
+      </div>
+
+      <div class="next-nav">
+        <span class="next-label">UP NEXT ↓</span>
+        <p class="cursive" style="color: var(--accent-pink);">next — one small secret →</p>
+        <button class="btn-primary" onclick="nextStep()">ONE SMALL SECRET →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: SCRATCH CARD -->
+    <div class="section" id="step6">
+      <div class="pill-tag">♥ A Small Secret</div>
+      <h1>scratch this — softly</h1>
+      <p class="subtitle">something I mean with my whole heart. use your finger.</p>
+
+      <div class="scratch-card-container">
+        <div class="scratch-secret cursive">
+          i love you, biyaa more than anything please considering me 😭<br>
+          <span style="font-size: 0.9rem; opacity: 0.85;">Because you are equal to my lyf</span>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+
+      <p class="cursive" style="color: var(--accent-pink); font-size: 1.1rem;">if you smiled — that was the whole point ♡</p>
+
+      <div class="next-nav">
+        <span class="next-label">UP NEXT ↓</span>
+        <p class="cursive" style="color: var(--accent-pink);">one last little thing →</p>
+        <button class="btn-primary" onclick="nextStep()">ONE LAST THING →</button>
+      </div>
+    </div>
+
+    <!-- STEP 7: FINAL PAGE -->
+    <div class="section" id="step7">
+      <div class="pill-tag">♥ For You, Really</div>
+      <h1>here, these are for you, Biyaa 🌷</h1>
+      <p class="subtitle">quick — before someone sees 🙈</p>
+
+      <svg class="doodle-img" viewBox="0 0 200 150" fill="none" stroke="#f0e6ff" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="60" cy="50" r="20" />
+        <path d="M60 70 v40 M60 85 h-20 M60 85 h20 M60 110 l-10 25 M60 110 l10 25" />
+        <circle cx="140" cy="50" r="20" />
+        <path d="M140 70 v40 M140 85 h-20 M140 85 h20 M140 110 l-10 25 M140 110 l10 25" />
+        <path d="M90 85 l20 -15" stroke="#ff7597" stroke-width="4" />
+        <circle cx="115" cy="65" r="8" fill="#ff7597" stroke="none" />
+        <circle cx="105" cy="60" r="8" fill="#ff7597" stroke="none" />
+        <circle cx="120" cy="75" r="8" fill="#ff7597" stroke="none" />
+      </svg>
+
+      <p style="font-size: 0.9rem; color: var(--text-light); max-width: 280px; line-height: 1.5;">
+        don't say anything — just take them, keep the smile, and pretend you didn't catch me blushing 🤭
+      </p>
+
+      <p class="cursive" style="font-size: 1.3rem; color: var(--accent-pink); margin-top: 20px;">— yours, always jb ♡ ❤️</p>
+    </div>
+
+  </div>
+
+  <audio id="bgAudio" src="Golden_Brown__female_cover_tiktok_version__-_The_Stranglers,_Dakijko_[edit_audio]__Full_Version_(256k)(1).mp3" preload="auto" loop></audio>
+
+  <script>
+    const bgAudio = document.getElementById('bgAudio');
+    const playBtn = document.getElementById('playBtn');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalDurationEl = document.getElementById('totalDuration');
+
+    let isPlaying = false;
+
+    bgAudio.addEventListener('loadedmetadata', () => {
+      const mins = Math.floor(bgAudio.duration / 60);
+      const secs = Math.floor(bgAudio.duration % 60).toString().padStart(2, '0');
+      totalDurationEl.innerText = `${mins}:${secs}`;
+    });
+
+    bgAudio.addEventListener('timeupdate', () => {
+      if (!isNaN(bgAudio.duration)) {
+        const pct = (bgAudio.currentTime / bgAudio.duration) * 100;
+        progressFill.style.width = pct + '%';
+        const mins = Math.floor(bgAudio.currentTime / 60);
+        const secs = Math.floor(bgAudio.currentTime % 60).toString().padStart(2, '0');
+        currentTimeEl.innerText = `${mins}:${secs}`;
+      }
+    });
+
+    bgAudio.addEventListener('ended', () => {
+      isPlaying = false;
+      playBtn.innerText = '▶';
+    });
+
+    function togglePlay() {
+      if (isPlaying) {
+        bgAudio.pause();
+        isPlaying = false;
+        playBtn.innerText = '▶';
+      } else {
+        bgAudio.play().then(() => {
+          isPlaying = true;
+          playBtn.innerText = '❚❚';
+        }).catch(err => {
+          console.error("Playback failed:", err);
+        });
+      }
+    }
+
+    function seekAudio(event) {
+      if (isNaN(bgAudio.duration)) return;
+      const progressBar = document.getElementById('progressBar');
+      const rect = progressBar.getBoundingClientRect();
+      const clickPosition = (event.clientX - rect.left) / rect.width;
+      bgAudio.currentTime = clickPosition * bgAudio.duration;
+    }
+
+    // FLOATING LOVE BUBBLES
+    const container = document.getElementById('bubblesContainer');
+    const bubbleCount = 18;
+
+    for (let i = 0; i < bubbleCount; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      const size = Math.random() * 28 + 24;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 8 + 7;
+      const delay = Math.random() * 8;
+      const heartSize = size * 0.45;
+
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${left}%`;
+      bubble.style.animationDuration = `${duration}s`;
+      bubble.style.animationDelay = `${delay}s`;
+      bubble.style.setProperty('--heart-size', `${heartSize}px`);
+
+      container.appendChild(bubble);
+    }
+
+    let currentStep = 1;
+    const totalSteps = 7;
+
+    function showStep(step) {
+      document.querySelectorAll('.section').forEach((sec, idx) => {
+        sec.classList.toggle('active', idx + 1 === step);
+      });
+      document.getElementById('backBtn').style.display = step > 1 ? 'flex' : 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+        if (currentStep === 4) initWheel();
+        if (currentStep === 6) initScratch();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    const galleryData = [
+      { url: 'bjdrsphnqhvytkqauxzm.jpeg', caption: 'this is the face I think about all day.' },
+      { url: 'swtt5tka8vuoogjio24h.jpeg', caption: 'the sun looks at you the way I do.' },
+      { url: 'udt9d4ps7melalvddvyg.jpeg', caption: 'your smile — the reason my days feel lighter.' },
+      { url: 'xtzlltykdswzdspcrr0h.jpeg', caption: 'pink suits you. everything suits you, actually.' }
+    ];
+
+    let currentSlide = 0;
+
+    function renderCarousel() {
+      const imgEl = document.getElementById('carouselImg');
+      imgEl.style.opacity = '0';
+      setTimeout(() => {
+        imgEl.src = galleryData[currentSlide].url;
+        imgEl.style.opacity = '1';
+      }, 150);
+
+      document.getElementById('slideCaption').innerText = galleryData[currentSlide].caption;
+      document.getElementById('slideCounter').innerText = `0${currentSlide + 1} / 04`;
+
+      const thumbContainer = document.getElementById('thumbContainer');
+      thumbContainer.innerHTML = '';
+      galleryData.forEach((item, idx) => {
+        const img = document.createElement('img');
+        img.src = item.url;
+        img.className = `thumb ${idx === currentSlide ? 'active' : ''}`;
+        img.onclick = () => { currentSlide = idx; renderCarousel(); };
+        thumbContainer.appendChild(img);
+      });
+    }
+
+    function changeSlide(dir) {
+      currentSlide = (currentSlide + dir + galleryData.length) % galleryData.length;
+      renderCarousel();
+    }
+    renderCarousel();
+
+    // Swipe support for gallery
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const carouselContainer = document.getElementById('carouselContainer');
+
+    carouselContainer.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    carouselContainer.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, {passive: true});
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        changeSlide(1);
+      }
+      if (touchEndX > touchStartX + 50) {
+        changeSlide(-1);
+      }
+    }
+
+    const reasons = [
+      "it's you. it will always be",
+      "being with you feels like home",
+      "your laugh is my favourite",
+      "small moments you turn happy",
+      "you're my quiet and my happy",
+      "you make me want to be better"
+    ];
+
+    let wheelInitialized = false;
+    function initWheel() {
+      if (wheelInitialized) return;
+      wheelInitialized = true;
+      const canvas = document.getElementById('wheel');
+      const ctx = canvas.getContext('2d');
+      const numSegments = reasons.length;
+      const angleArc = (2 * Math.PI) / numSegments;
+      const colors = ['#231238', '#2e1947', '#1a0d2a', '#231238', '#2e1947', '#1a0d2a'];
+
+      for (let i = 0; i < numSegments; i++) {
+        const angle = i * angleArc;
+        ctx.beginPath();
+        ctx.fillStyle = colors[i];
+        ctx.moveTo(140, 140);
+        ctx.arc(140, 140, 140, angle, angle + angleArc);
+        ctx.fill();
+
+        ctx.save();
+        ctx.translate(140, 140);
+        ctx.rotate(angle + angleArc / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#b388ff";
+        ctx.font = "10px Outfit";
+        
+        const words = reasons[i].split(" ");
+        ctx.fillText(words.slice(0, 3).join(" "), 120, -2);
+        if (words.length > 3) ctx.fillText(words.slice(3).join(" "), 120, 10);
+        
+        ctx.restore();
+      }
+    }
+
+    let currentRotation = 0;
+    function spinWheel() {
+      const canvas = document.getElementById('wheel');
+      const randomExtra = Math.floor(Math.random() * 360) + 1440;
+      currentRotation += randomExtra;
+      canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+      setTimeout(() => {
+        const actualDeg = currentRotation % 360;
+        const index = Math.floor((360 - (actualDeg % 360)) / (360 / reasons.length)) % reasons.length;
+        document.getElementById('reasonText').innerText = `"${reasons[index]}"`;
+      }, 4000);
+    }
+
+    let scratchInitialized = false;
+    function initScratch() {
+      if (scratchInitialized) return;
+      scratchInitialized = true;
+      const canvas = document.getElementById('scratchCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      ctx.fillStyle = '#321d47';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#b388ff';
+      ctx.font = '16px Outfit';
+      ctx.textAlign = 'center';
+      ctx.fillText('scratch me softly ♡', canvas.width / 2, canvas.height / 2 + 5);
+
+      let isDrawing = false;
+
+      function scratch(e) {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        if (clientX === undefined || clientY === undefined) return;
+        
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      canvas.addEventListener('mousedown', () => isDrawing = true);
+      window.addEventListener('mouseup', () => isDrawing = false);
+      canvas.addEventListener('mousemove', scratch);
+
+      canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: true});
+      window.addEventListener('touchend', () => isDrawing = false);
+      canvas.addEventListener('touchmove', (e) => { scratch(e); }, {passive: true});
+    }
+  </script>
+</body>
+</html>
+
